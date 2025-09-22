@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
     ListaContactos lista; // Creamos la lista ligada de contactos
+    cargarDesdeArchivo(lista, "contactos.txt"); // se carga la lista desde el archivo
     int opcion;
 
     do {
