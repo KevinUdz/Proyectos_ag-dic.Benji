@@ -34,19 +34,19 @@ Para almacenar los contactos decidi usar una lista ligada simple ya que es una e
 
 ## Complejidad del programa
 # Lista ligada
-Insertar: O(n)
-Buscar: O(n)
-Actualizar: O(n)
-Eliminar: O(n)
-Contar: O(n)
-Guardar archivo: O(n)
-Cargar archivo: O(n²) (porque cada línea hace una inserción O(n))
+- Insertar: O(n)
+- Buscar: O(n)
+- Actualizar: O(n)
+- Eliminar: O(n)
+- Contar: O(n)
+- Guardar archivo: O(n)
+- Cargar archivo: O(n²) (porque cada línea hace una inserción O(n))
 
 # Complejidad de ordenamientos
-Selection Sort -> O(n²)
-Bubble Sort -> O(n²)
-Merge Sort -> O(n log n)
+- Selection Sort -> O(n²)
+- Bubble Sort -> O(n²)
+- Merge Sort -> O(n log n)
 
 # Búsquedas
-Recursiva -> O(n)
-Binaria -> O(log n) (solo si ya está ordenado)
+- Recursiva -> O(n)
+- Binaria -> O(log n) (solo si ya está ordenado)
