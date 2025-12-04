@@ -1,19 +1,20 @@
 #include "Contacto.h"
-#include "Ordenamientos.h"
+#include "ListaContactos.h"
 #include <iostream>
 using namespace std;
 
 int main() {
+
     ListaContactos lista;
     const string archivo = "contactos.txt";
 
-     // Primero se verificara si existe el archivo de contactos para cargar los datos
-    // si no se encuentra se creara uno al guardar
+    // Cargo los contactos si el archivo existe
     lista.cargarDesdeArchivo(archivo);
 
     int opcion = -1;
+
     do {
-        // Diseño un menu de opciones para el usuario
+        // Menu principal
         cout << "\n===== AGENDA DE CONTACTOS =====\n";
         cout << "1. Agregar contacto\n";
         cout << "2. Mostrar contactos\n";
@@ -24,87 +25,114 @@ int main() {
         cout << "7. Ordenar (Selection Sort)\n";
         cout << "8. Ordenar (Bubble Sort)\n";
         cout << "9. Ordenar (Merge Sort)\n";
-        cout << "10. Buscar (Binaria)\n";
+        cout << "10. Buscar (Binaria por numero)\n";
+        cout << "11. Mostrar ordenados (BST)\n";
+        cout << "12. Buscar (BST)\n";
         cout << "0. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
         cin.ignore();
 
-        // Si elige la opcion 1 se le pediran los datos del contacto y se insertara en la lista
-
+        // Agregar contacto
         if (opcion == 1) {
             string n, t, c;
-            cout << "Nombre: "; getline(cin, n);
-            cout << "Telefono: "; getline(cin, t);
-            cout << "Correo: "; getline(cin, c);
+            cout << "Nombre: ";
+            getline(cin, n);
+            cout << "Telefono: ";
+            getline(cin, t);
+            cout << "Correo: ";
+            getline(cin, c);
+
             lista.insertar(n, t, c);
             lista.guardarEnArchivo(archivo);
         }
 
-        // si elige la opcion 2 se mostraran todos los contactos almacenados
-        else if (opcion == 2) lista.mostrar();
+        // Mostrar contactos
+        else if (opcion == 2) {
+            lista.mostrar();
+        }
 
-        // si elige la opcion 3 se le pedira el nombre del contacto a buscar
+        // Busqueda recursiva
         else if (opcion == 3) {
             string n;
-            cout << "Buscar (recursivo): "; getline(cin, n);
+            cout << "Nombre a buscar: ";
+            getline(cin, n);
+
             Contacto* r = lista.buscarRecursiva(lista.getHead(), n);
-            if (r) cout << "Encontrado: " << r->nombre << " | " << r->telefono << "\n";
-            else cout << "No encontrado.\n";
+
+            if (r)
+                cout << "Encontrado: " << r->nombre << " | " << r->telefono << endl;
+            else
+                cout << "No encontrado.\n";
         }
 
-        // si elige la opcion 4 se le pediran los datos del contacto a actualizar
+        // Actualizar contacto
         else if (opcion == 4) {
-            string n, t, c;
-            cout << "Actualizar: "; getline(cin, n);
-            cout << "Nuevo tel: "; getline(cin, t);
-            cout << "Nuevo correo: "; getline(cin, c);
-            lista.actualizar(n, t, c);
-            lista.guardarEnArchivo(archivo);
+            string n;
+            cout << "Nombre a actualizar: ";
+            getline(cin, n);
+
+            Contacto* c = lista.buscarRecursiva(lista.getHead(), n);
+
+            if (!c) {
+                cout << "No se encontro el contacto.\n";
+            } else {
+                cout << "Nuevo telefono: ";
+                getline(cin, c->telefono);
+                cout << "Nuevo correo: ";
+                getline(cin, c->correo);
+
+                lista.guardarEnArchivo(archivo);
+                cout << "Contacto actualizado.\n";
+            }
         }
 
-        // si elige la opcion 5 se le pedira el nombre del contacto a eliminar
+        // Eliminar contacto
         else if (opcion == 5) {
             string n;
-            cout << "Eliminar: "; getline(cin, n);
+            cout << "Nombre a eliminar: ";
+            getline(cin, n);
+
             lista.eliminar(n);
             lista.guardarEnArchivo(archivo);
         }
 
-        // si elige la opcion 6 se mostrara el total de contactos almacenados
-        else if (opcion == 6)
-            cout << "Total de contactos: " << lista.contarIterativo() << "\n";
-
-            // si elige las opciones 7, 8 o 9 se ordenaran los contactos usando el algoritmo seleccionado
-        else if (opcion >= 7 && opcion <= 9) {
-            int n = lista.contarIterativo();
-            if (n == 0) { cout << "No hay contactos.\n"; continue; }
-            Contacto** arr = new Contacto*[n];
-            Contacto* tmp = lista.getHead();
-            for (int i = 0; i < n; i++) { arr[i] = tmp; tmp = tmp->next; }
-            if (opcion == 7) selectionSort(arr, n);
-            if (opcion == 8) bubbleSort(arr, n);
-            if (opcion == 9) mergeSort(arr, 0, n - 1);
-            cout << "\n--- Contactos ordenados ---\n";
-            for (int i = 0; i < n; i++)
-                cout << arr[i]->nombre << " - " << arr[i]->telefono << " - " << arr[i]->correo << endl;
-            delete[] arr;
+        // Contar contactos
+        else if (opcion == 6) {
+            cout << "Total de contactos: " << lista.contarIterativo() << endl;
         }
 
-            // si elige la opcion 10 se le pedira el nombre del contacto a buscar usando busqueda binaria
+        // Busqueda binaria por numero de telefono (mas practico que si fuera por nombre o mail)
         else if (opcion == 10) {
-            int n = lista.contarIterativo();
-            if (n == 0) { cout << "No hay contactos.\n"; continue; }
-            Contacto** arr = new Contacto*[n];
-            Contacto* tmp = lista.getHead();
-            for (int i = 0; i < n; i++) { arr[i] = tmp; tmp = tmp->next; }
-            mergeSort(arr, 0, n - 1);
-            string buscar;
-            cout << "Nombre a buscar: "; getline(cin, buscar);
-            Contacto* r = busquedaBinaria(arr, n, buscar);
-            if (r) cout << "Encontrado: " << r->nombre << " | " << r->telefono << endl;
-            else cout << "No encontrado.\n";
-            delete[] arr;
+            string num;
+            cout << "Numero a buscar: ";
+            getline(cin, num);
+
+            Contacto* c = lista.busquedaBinariaPorNumero(num);
+
+            if (c)
+                cout << "Encontrado: " << c->nombre << " | " << c->telefono << endl;
+            else
+                cout << "No encontrado.\n";
+        }
+
+        // Mostrar ordenados con BST
+        else if (opcion == 11) {
+            lista.mostrarOrdenadosBST();
+        }
+
+        // Buscar con BST
+        else if (opcion == 12) {
+            string n;
+            cout << "Nombre a buscar: ";
+            getline(cin, n);
+
+            Contacto* c = lista.buscarBST(n);
+
+            if (c)
+                cout << "Encontrado: " << c->nombre << " | " << c->telefono << endl;
+            else
+                cout << "No encontrado.\n";
         }
 
     } while (opcion != 0);
