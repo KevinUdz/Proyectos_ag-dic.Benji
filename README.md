@@ -1,52 +1,173 @@
-# Proyectos_ag-dic.Benji
+##Contexto
 
-## Contexto
-Mi proyecto consiste en una agenda digital que permite registrar, consultar, modificar y eliminar contactos de manera sencilla, ademas de guardar la informacion en un archivo para conservarla despues de cerrar el programa. 
-La idea es que el usuario pueda registrar datos importantes como el nombre, teléfono y correo, y que estos se guarden en un archivo para no perder la información al cerrar el programa.  
+Mi proyecto consiste en una agenda digital que permite registrar, consultar, modificar y eliminar contactos de manera sencilla, ademas de guardar la informacion en un archivo para conservarla despues de cerrar el programa.
+La idea es que el usuario pueda registrar datos importantes como nombre, telefono y correo, y que estos se guarden en un archivo para no perder la informacion al cerrar el programa.
 
-## Objetivo
-El objetivo principal de este proyecto es crear una herramienta básica para la gestión de contactos, aplicando los conceptos de programación que se estan viendo en clase. 
+##Objetivo
+
+El objetivo principal es crear una herramienta basica para la gestion de contactos aplicando los conceptos de programacion vistos en clase.
 De esta forma, se busca que el usuario tenga una experiencia sencilla y clara al interactuar con la agenda.
 
-## Funcionalidad
-El menú principal del programa ofrece las siguientes opciones:
+##Cambios realizados y por que se hicieron
 
-- **Agregar contacto**: se solicita nombre, teléfono y correo. (En esta nueva entrega implemente para evitar duplicados o nombres vacios y asi evitar un error)
-- **Mostrar contactos**: Muestra todos los contactos almacenados
-- **Buscar contacto**: permite localizar un contacto por nombre de manera recursiva
-- **Actualizar contacto**: cambia los datos de un contacto existente
-- **Eliminar contacto**: borra un contacto de la lista ligada
-- **Contar contactos**: muestra cuántos registros existen (el total)
-- **Ordenar contactos por nombre**: el usuario puede elegir entre tres métodos distintos de ordenamiento (selection, bubble y merge)
-- **Guardar y cargar automáticamente**:  los datos se guardan en un archivo llamado `contactos.txt`
-- **Busqueda binaria**: Busca un contacto en la lista ya ordenada
+En esta nueva version del proyecto realice varios cambios para mejorar la estructura, cumplir con la rubrica y evitar que me faltaran puntos:
 
-## Algoritmos de ordenamiento
-En clase hemos visto 3 diferentes tipos de algoritmos los cuales son "selection sort, bubble sort y merge sort". Cada uno es mejor en ciertos casos pero no tienen el mismo rendimiento, despues de investigarlos llega a la conclusión que el mejor para mi proyecto es el merge sort y explico el porque:
-- Selection sort: Lo que tiene el selection sort es que es simple, lo que ahce es buscar el elemento mas pequeño de la lista y colocarlo al inciio, repitiendo el rpoceso hasta que todo quede ordenado. Es recomendable para listas pequeñas por lo que en mi caso no es la mejor opcion
-- Bubble sort: Este algoritmo compara los elemmentos de dos en dos y lo que ahce es que los va intercambiando si estan en el roden incorrecto. De igual manera es uno de los mas "basicos" pero este se suele usar con fines mas educativos o para listas cortas por lo que nuevamente no es la mejor opcion
-- Merge sort: Por ultimo el merge sort y el que yo opte por utilizar, lo que hace es dividir la lista en partes mas pequeñas para asi ordenarlas individualmente y posteriormente combinarlas. Lo que tiene este y mi motivo de tomar este algoritmo es que es muchisimo mas rapido y eficiente en comparacion a los otros dos, precisamente cuando se trabaja con listas grandes o muchos contactios (como lo es mi caso)
+1. Se agrego un arbol BST
 
-En mi proyecto, Merge Sort es el más conveniente porque al tratarse de una agenda de contactos, la cantidad de registros puede aumentar con el tiempo. Este algoritmo me permite mantener los datos ordenados sin que el programa se vuelva demasiado lento, ya que su complejidad es O(n log n), lo cual es mucho más eficiente que los O(n²) de los otros métodos
+El profesor pidio que se usara una estructura de datos un poco mas avanzada que solo la lista ligada, asi que agregue un BST (Binary Search Tree).
+Este arbol me sirve para:
 
-## Estructura de datos
-Para almacenar los contactos decidi usar una lista ligada simple ya que es una estructura que se adpata bastante bien cuando no se sabe cuantos elementos se van a guardar. En mi programa cada contacto es un nodo que guarda el nombre, telefono, corre y un puntero al siguiente contacto. Lo que me permite agregar, eliminiar o actualizar contactos sin la ncesidad de mover todos los elementos como lo podria ser en un arreglo. De igual manera otra ventaja que el profe menciono es que la memoria se usa de forma dinamica por lo que solo sea creara un nodo cuando se necesite
+Mostrar contactos ordenados alfabeticamente sin usar ordenar la lista
 
-## Complejidad del programa
-# Lista ligada
-- Insertar: O(n)
-- Buscar: O(n)
-- Actualizar: O(n)
-- Eliminar: O(n)
-- Contar: O(n)
-- Guardar archivo: O(n)
-- Cargar archivo: O(n²) (porque cada línea hace una inserción O(n))
+Buscar un contacto por nombre mas rapido que en la lista
 
-# Complejidad de ordenamientos
-- Selection Sort -> O(n²)
-- Bubble Sort -> O(n²)
-- Merge Sort -> O(n log n)
+Tener una estructura de datos adicional para cumplir la rubrica
 
-# Búsquedas
-- Recursiva -> O(n)
-- Binaria -> O(log n) (solo si ya está ordenado)
+Lo elegi porque es mas sencillo y practico que un AVL y aun asi cumple bien con lo que pide el profe.
+
+2. Se agrego la busqueda binaria por numero
+
+El profe tambien quiso que aplicara varios tipos de busquedas, asi que implemente la busqueda binaria.
+Para usarla convierto la lista en un vector, lo ordeno por numero y luego aplico binaria.
+La gente del curso si entiende este proceso porque es lo mismo que vimos en clase.
+
+3. Se agregaron validaciones
+
+Evitar nombres vacios
+
+Evitar contactos duplicados
+
+Mensajes mas claros para el usuario
+
+4. Se corrigio la carga y guardado del archivo
+
+Ahora al agregar, actualizar o eliminar tambien se actualiza el archivo automaticamente.
+
+5. Se agregaron comentarios simples dentro del codigo
+
+Todo esta escrito de manera sencilla para que el profe vea que entiendo lo que hago.
+
+Funcionalidad del programa
+
+El menu principal ofrece:
+
+Agregar contacto: pide nombre, telefono y correo.
+
+Mostrar contactos: muestra todos los registros.
+
+Buscar contacto recursivo: busca por nombre usando recursion.
+
+Actualizar contacto: cambia los datos del contacto.
+
+Eliminar contacto: borra un contacto de la lista ligada.
+
+Contar contactos: muestra el total.
+
+Ordenamientos: selection sort, bubble sort y merge sort.
+
+Busqueda binaria: busca por numero en una lista ordenada.
+
+BST:
+
+Mostrar contactos ordenados automaticamente
+
+Buscar por nombre usando el arbol
+
+Algoritmos de ordenamiento
+
+En clase vimos 3 metodos y analice cual es mejor para mi proyecto:
+
+Selection sort
+
+Es simple pero muy lento para listas grandes.
+
+Se usa mas para ejemplos educativos.
+
+Tiene complejidad O(n^2).
+
+Bubble sort
+
+Compara elementos de dos en dos e intercambia si estan mal.
+
+Igual que el anterior, sirve mas para demostrar el concepto.
+
+Complejidad O(n^2).
+
+Merge sort
+
+Divide la lista en partes mas pequenas, las ordena y luego las combina.
+
+Es mucho mas rapido y eficiente.
+
+Complejidad O(n log n).
+
+Lo elegi como el algoritmo principal porque al manejar muchos contactos no quiero que el programa se vuelva lento.
+
+Estructura de datos
+Lista ligada simple
+
+Decidi usar una lista ligada porque:
+
+No necesito saber cuantos contactos habra
+
+Es facil agregar, eliminar o actualizar sin mover todos los elementos
+
+Se usa memoria dinamica (solo se crea lo que se necesita)
+
+Cada contacto es un nodo con:
+
+nombre
+
+telefono
+
+correo
+
+puntero al siguiente
+
+Arbol BST (estructura adicional)
+
+El profesor pidio una estructura mas avanzada, por eso agregue un BST.
+Lo uso para:
+
+Mostrar contactos en orden alfabetico
+
+Buscar mas rapido por nombre
+
+Complejidad del programa
+Lista ligada
+
+Insertar: O(n)
+
+Buscar: O(n)
+
+Actualizar: O(n)
+
+Eliminar: O(n)
+
+Contar: O(n)
+
+Guardar archivo: O(n)
+
+Cargar archivo: O(n^2) (porque se llama insertar por cada linea)
+
+Ordenamientos
+
+Selection Sort -> O(n^2)
+
+Bubble Sort -> O(n^2)
+
+Merge Sort -> O(n log n)
+
+Busquedas
+
+Recursiva (lista) -> O(n)
+
+Binaria -> O(log n) si ya esta ordenado
+
+BST:
+
+Buscar -> O(log n) en promedio
+
+Insertar -> O(log n) en promedio
+
+Mostrar ordenado -> O(n)
